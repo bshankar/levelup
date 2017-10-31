@@ -4,7 +4,7 @@ class SideBar extends Component {
   render () {
     return (
       <div className="col s2">
-        <input class="input" type="text" placeholder="Search"/>
+        <input className="input" type="text" placeholder="Search"/>
       </div>
     )
   }

@@ -4,7 +4,7 @@ class TopButtons extends Component {
   render () {
     return (
       <div style={{position: 'absolute', right: '0.5em', top: '0.5em'}}>
-        <button class="btn waves-effect waves-light btn-flat">Logout
+        <button className="btn waves-effect waves-light btn-flat">Logout
         </button>
       </div>
     )

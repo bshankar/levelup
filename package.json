@@ -7,7 +7,8 @@
     "react": "^15.6.0",
     "react-dom": "^15.6.0",
     "react-konva": "^1.1.5",
-    "react-scripts": "1.0.14"
+    "react-scripts": "1.0.14",
+    "react-tooltip": "^3.4.0"
   },
   "scripts": {
     "start": "react-scripts start",

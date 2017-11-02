@@ -16,7 +16,7 @@ function getRequirements(node, graph) {
 }
 
 const nodes = [
-  createNode('JS', 'Javascript journey starts here!', 64, 'start'),
+  createNode('JS', 'Javascript journey starts here!', 64, 'root'),
   createNode('EJS', 'Eloquent Javascript chapters 1 to 6', 28, 'unlocked'),
   createNode('HRK', 'Get hackerrank rank in algorithms section below 10k', 22, 'unlocked'),
   createNode('Project', 'Do a simple project', 35, 'locked'),
@@ -34,7 +34,7 @@ const statusToColors = {
 }
 
 class GraphNode extends Component {
-  state = { status: this.props.initialStatus || 'locked'}
+  state = { status: this.props.node.status }
 
   handleClick = () => {
     switch (this.state.status) {
@@ -52,8 +52,8 @@ class GraphNode extends Component {
         <Text
           x={this.props.x}
           y={this.props.y}
-          text={this.props.text}
-          fontSize={this.props.size}
+          text={this.props.node.title}
+          fontSize={this.props.node.size}
           fill={statusToColors[this.state.status]}
           onClick={this.handleClick}
         />
@@ -66,11 +66,11 @@ class ProgressGraph extends Component {
     return (
       <Stage width={700} height={700}>
         <Layer>
-          <GraphNode x={350} y={360} text={nodes[0].title} size={nodes[0].size} initialStatus='root' />
-          <GraphNode x={450} y={280} text={nodes[1].title} size={nodes[1].size} initialStatus='unlocked'/>
-          <GraphNode x={250} y={280} text={nodes[2].title} size={nodes[2].size} initialStatus='unlocked'/>
-          <GraphNode x={320} y={200} text={nodes[3].title} size={nodes[3].size} />
-          <GraphNode x={350} y={120} text={nodes[4].title} size={nodes[4].size} />
+        <GraphNode x={350} y={360} node={nodes[0]} />
+        <GraphNode x={450} y={280} node={nodes[1]} />
+        <GraphNode x={250} y={280} node={nodes[2]} />
+        <GraphNode x={320} y={200} node={nodes[3]} />
+        <GraphNode x={350} y={120} node={nodes[4]} />
         </Layer>
       </Stage>
     )

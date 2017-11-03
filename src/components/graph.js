@@ -56,11 +56,11 @@ class ProgressGraph extends Component {
 
   tryUnlockingNexts(i) {
     this.sampleGraph[i].filter(n => this.state.nodes[n].status === 'locked')
-      .filter(k => this.graphDependencies[k].reduce((res, e) => res && this.state.nodes[e].status !== 'locked', true))
-      .map((v, k) => this.setState({nodes: [
-        ...this.state.nodes.slice(0, k),
-        {...this.state.nodes[k], status: 'unlocked'},
-        ...this.state.nodes.slice(k + 1)]}))
+      .filter(k => this.graphDependencies[k].reduce((res, e) => res && this.state.nodes[e].status === 'finished', true))
+      .map(v => this.setState({nodes: [
+        ...this.state.nodes.slice(0, v),
+        {...this.state.nodes[v], status: 'unlocked'},
+        ...this.state.nodes.slice(v + 1)]}))
   }
 
   handleClick(i) {

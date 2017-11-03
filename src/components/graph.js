@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Layer, Text, Stage } from 'react-konva'
+import { Layer, Text, Rect, Stage } from 'react-konva'
 
 function createNode (title, description, size, status) {
   return {
@@ -19,7 +19,7 @@ const statusToColors = {
 }
 
 class GraphNode extends Component {
-  
+
   render() {
     return (
         <Text
@@ -30,6 +30,33 @@ class GraphNode extends Component {
           fill={statusToColors[this.props.node.status]}
           onClick={this.props.onClick}
         />
+    )
+  }
+}
+
+class LegendRect extends Component {
+  render() {
+    return (
+      <Rect
+        width={25}
+        height={25}
+        x={this.props.x}
+        y={this.props.y}
+        fill={this.props.color}
+      />
+    )
+  }
+}
+
+class LegendLabel extends Component {
+  render() {
+    return (
+      <Text
+        fontSize={16}
+        x={this.props.x}
+        y={this.props.y}
+        text={this.props.text}
+      />
     )
   }
 }
@@ -88,11 +115,22 @@ class ProgressGraph extends Component {
     return (
       <Stage width={700} height={700}>
         <Layer>
-        <GraphNode x={350} y={360} node={this.state.nodes[0]} onClick={() => this.handleClick(0)} />
-        <GraphNode x={450} y={280} node={this.state.nodes[1]} onClick={() => this.handleClick(1)} />
-        <GraphNode x={250} y={280} node={this.state.nodes[2]} onClick={() => this.handleClick(2)} />
-        <GraphNode x={320} y={200} node={this.state.nodes[3]} onClick={() => this.handleClick(3)} />
-        <GraphNode x={350} y={120} node={this.state.nodes[4]} onClick={() => this.handleClick(4)} />
+          <GraphNode x={350} y={360} node={this.state.nodes[0]} onClick={() => this.handleClick(0)} />
+          <GraphNode x={450} y={280} node={this.state.nodes[1]} onClick={() => this.handleClick(1)} />
+          <GraphNode x={250} y={280} node={this.state.nodes[2]} onClick={() => this.handleClick(2)} />
+          <GraphNode x={320} y={200} node={this.state.nodes[3]} onClick={() => this.handleClick(3)} />
+          <GraphNode x={350} y={120} node={this.state.nodes[4]} onClick={() => this.handleClick(4)} />
+
+          <LegendRect x={100} y={600} color={'grey'} />
+          <LegendLabel x={133} y={610} text={'locked'}/>
+          <LegendRect x={220} y={600} color={'lightgreen'} />
+          <LegendLabel x={253} y={610} text={'unlocked'}/>
+          <LegendRect x={350} y={600} color={'green'} />
+          <LegendLabel x={380} y={610} text={'progress'}/>
+          <LegendRect x={470} y={600} color={'gold'} />
+          <LegendLabel x={500} y={610} text={'complete'}/>
+          <LegendRect x={585} y={600} color={'goldenrod'} />
+          <LegendLabel x={615} y={610} text={'start'}/>
         </Layer>
       </Stage>
     )

@@ -53,6 +53,7 @@ class LegendLabel extends Component {
     return (
       <Text
         fontSize={16}
+        fill={'dimgrey'}
         x={this.props.x}
         y={this.props.y}
         text={this.props.text}

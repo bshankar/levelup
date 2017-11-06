@@ -8,7 +8,7 @@ class MainContainer extends Component {
     return (
       <div className="col s9">
         <TopButtons />
-        <ProgressGraph data={[5,10,1,3]} size={[500, 500]} />
+        <ProgressGraph data={[5,10,1,3]} width={500} height={500} />
         <BottomButtons />
       </div>
     )

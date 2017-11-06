@@ -1,16 +1,8 @@
 import React, { Component } from 'react'
+import graph from '../data/javascript'
 import { scaleLinear } from 'd3-scale'
 import { max } from 'd3-array'
 import { select } from 'd3-selection'
-
-function createNode (title, description, size, status) {
-  return {
-    title: title,
-    description: description,
-    size: size,
-    status: status
-  }
-}
 
 class ProgressGraph extends Component {
   constructor (props) {
@@ -56,6 +48,7 @@ class ProgressGraph extends Component {
   }
 
   render () {
+    console.log(graph)
     return <svg ref={node => this.node = node} width={500} height={500} ></svg>
   }
 }

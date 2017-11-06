@@ -25,6 +25,7 @@ class ProgressGraph extends Component {
 
     const simulation = d3.forceSimulation()
           .force('link', d3.forceLink().distance(10).strength(0.5))
+          .force('collision', d3.forceCollide(64))
           .force('charge', d3.forceManyBody())
           .force('center', d3.forceCenter(width / 2, height / 2))
 
@@ -49,10 +50,11 @@ class ProgressGraph extends Component {
 
     const node = svg.selectAll('.node')
           .data(nodes.filter(function (d) { return d.id }))
-          .enter().append('circle')
+          .enter().append('text')
           .attr('class', 'node')
-          .attr('r', 5)
-          .attr('fill', function (d) { return color(d.group) })
+          .text(d => d.id)
+          .attr('font-size', d => d.weight + 'px')
+          .attr('fill', function (d) { return color(d.status) })
           .call(d3.drag()
                 .on('start', dragstarted)
                 .on('drag', dragged)

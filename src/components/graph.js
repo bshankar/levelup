@@ -55,10 +55,6 @@ class ProgressGraph extends Component {
           .text(d => d.id)
           .attr('font-size', d => d.weight + 'px')
           .attr('fill', function (d) { return color(d.status) })
-          .call(d3.drag()
-                .on('start', dragStarted)
-                .on('drag', dragged)
-                .on('end', dragEnded))
           .on('mouseover', mouseOver)
           .on('mouseout', mouseOut)
 
@@ -85,23 +81,6 @@ class ProgressGraph extends Component {
 
     function positionNode (d) {
       return 'translate(' + d.x + ',' + d.y + ')'
-    }
-
-    function dragStarted (d) {
-      if (!d3.event.active) simulation.alphaTarget(0.3).restart()
-      d.fx = d.x
-      d.fy = d.y
-    }
-
-    function dragged (d) {
-      d.fx = d3.event.x
-      d.fy = d3.event.y
-    }
-
-    function dragEnded (d) {
-      if (!d3.event.active) simulation.alphaTarget(0)
-      d.fx = null
-      d.fy = null
     }
 
     function mouseOver (d) {

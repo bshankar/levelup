@@ -12,8 +12,10 @@ const graph = {
     {source: 'JS', target: 'HRK'},
     {source: 'EJS', target: 'Project'},
     {source: 'HRK', target: 'Project'},
-    {source: 'Project', target: ':42' }
-  ]
+    {source: 'Project', target: ':42'}
+  ],
+
+  deps: [[], [0], [0], [1, 2], [3]]
 }
 
 export default graph

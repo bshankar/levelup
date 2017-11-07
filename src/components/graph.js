@@ -109,7 +109,10 @@ class ProgressGraph extends Component {
         .duration(200)
         .style('opacity', 0.9)
 
-      tooltipDiv.html(23 + '<br/>' + d.close)
+      const toolTipHtml = '<div><p>Status:</p><h6>' + d.status + '</h6>' +
+            '<p></p><p>Description:</p><p>' + d.description + '</p></div>'
+
+      tooltipDiv.html(toolTipHtml)
         .style('left', (d3.event.pageX) + 'px')
         .style('top', (d3.event.pageY - 28) + 'px')
     }

@@ -3,6 +3,9 @@ import * as d3 from 'd3'
 import graph from '../data/javascript'
 
 class ProgressGraph extends Component {
+
+  state = {graph: graph}
+  
   constructor (props) {
     super(props)
     this.createProgressGraph = this.createProgressGraph.bind(this)
@@ -14,6 +17,10 @@ class ProgressGraph extends Component {
 
   componentDidUpdate () {
     this.createProgressGraph()
+  }
+
+  handleClick(i) {
+    
   }
 
   createProgressGraph () {
@@ -29,9 +36,9 @@ class ProgressGraph extends Component {
           .force('charge', d3.forceManyBody())
           .force('center', d3.forceCenter(width / 2, height / 2))
 
-    const nodes = graph.nodes
+    const nodes = this.state.graph.nodes
     const nodeById = d3.map(nodes, function (d) { return d.id })
-    const links = graph.links
+    const links = this.state.graph.links
     const bilinks = []
 
     links.forEach(function (link) {

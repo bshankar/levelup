@@ -25,7 +25,7 @@ class ProgressGraph extends Component {
 
     const simulation = d3.forceSimulation()
           .force('link', d3.forceLink().distance(10).strength(0.5))
-          .force('collision', d3.forceCollide(64))
+          .force('collision', d3.forceCollide(48))
           .force('charge', d3.forceManyBody())
           .force('center', d3.forceCenter(width / 2, height / 2))
 

@@ -56,14 +56,21 @@ class ProgressGraph extends Component {
           .attr('font-size', d => d.weight + 'px')
           .attr('fill', function (d) { return color(d.status) })
           .call(d3.drag()
-                .on('start', dragstarted)
+                .on('start', dragStarted)
                 .on('drag', dragged)
-                .on('end', dragended))
+                .on('end', dragEnded))
+          .on('mouseover', mouseOver)
+          .on('mouseout', mouseOut)
 
     node.append('title').text(function (d) { return d.id })
 
     simulation.nodes(nodes).on('tick', ticked)
     simulation.force('link').links(links)
+
+    // Define the div for the tooltip
+    const tooltipDiv = d3.select('body').append('div')
+          .attr('class', 'tooltip')
+          .style('opacity', 0)
 
     function ticked () {
       link.attr('d', positionLink)
@@ -80,7 +87,7 @@ class ProgressGraph extends Component {
       return 'translate(' + d.x + ',' + d.y + ')'
     }
 
-    function dragstarted (d) {
+    function dragStarted (d) {
       if (!d3.event.active) simulation.alphaTarget(0.3).restart()
       d.fx = d.x
       d.fy = d.y
@@ -91,10 +98,26 @@ class ProgressGraph extends Component {
       d.fy = d3.event.y
     }
 
-    function dragended (d) {
+    function dragEnded (d) {
       if (!d3.event.active) simulation.alphaTarget(0)
       d.fx = null
       d.fy = null
+    }
+
+    function mouseOver (d) {
+      tooltipDiv.transition()
+        .duration(200)
+        .style('opacity', 0.9)
+
+      tooltipDiv.html(23 + '<br/>' + d.close)
+        .style('left', (d3.event.pageX) + 'px')
+        .style('top', (d3.event.pageY - 28) + 'px')
+    }
+
+    function mouseOut (d) {
+      tooltipDiv.transition()
+        .duration(500)
+        .style('opacity', 0)
     }
   }
 

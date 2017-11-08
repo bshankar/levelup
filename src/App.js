@@ -114,7 +114,7 @@ class App extends Component {
           <div>
             <h3> {currentNode.id}</h3>
             <p/>
-            <p> {currentNode.description} </p>
+            <p class="flow-text"> {currentNode.description} </p>
             <p/>
             <h5> Comments </h5>
           </div> :

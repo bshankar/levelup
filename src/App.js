@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import * as d3 from 'd3'
 import SideBar from './components/sidebar'
-import SideBarRight from './components/sidebar_right'
 import TopButtons from './components/top_buttons'
 import BottomButtons from './components/bottom_buttons'
 import graph from './data/javascript'
@@ -14,15 +13,11 @@ class App extends Component {
     currentNode: null
   }
 
-  handleClick(i) {
-    this.setState({...this.state, currentNode: this.state.graph.nodes[i]})
-  }
-
   createProgressGraph () {
     const svg = d3.select(this.node)
     const width = +svg.attr('width')
     const height = +svg.attr('height')
-
+    const appObj = this
     const color = d3.scaleOrdinal(d3.schemeCategory20)
 
     const simulation = d3.forceSimulation()
@@ -59,6 +54,7 @@ class App extends Component {
           .attr('fill', function (d) { return color(d.status) })
           .on('mouseover', mouseOver)
           .on('mouseout', mouseOut)
+          .on('click', function (d) { appObj.setState({...appObj.state, currentNode: d}) } )
 
     node.append('title').text(function (d) { return d.id })
 
@@ -109,14 +105,21 @@ class App extends Component {
     this.createProgressGraph()
   }
 
-  componentDidUpdate () {
-    this.createProgressGraph()
-  }
-  
   render () {
-    const mainContainerClass = 'col ' +
-          (this.state.currentNode !== null ? 's6' : 's10')
+    const currentNode = this.state.currentNode
 
+    const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
+
+    const rightBarHtml = (currentNode !== null) ?
+          <div>
+            <h3> {currentNode.id}</h3>
+            <p/>
+            <p> {currentNode.description} </p>
+            <p/>
+            <h5> Comments </h5>
+          </div> :
+          <p/>
+    
     return (
       <div className="row">
         <SideBar />
@@ -126,8 +129,10 @@ class App extends Component {
           <svg ref={node => this.node = node} width={500} height={500} ></svg>        
           <BottomButtons />
         </div>
-        
-        <SideBarRight node={this.state.currentNode} />
+
+        <div className="col s4">
+        {rightBarHtml}
+        </div>        
       </div>
     )
   }

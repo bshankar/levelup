@@ -3,6 +3,7 @@ import * as d3 from 'd3'
 import SideBar from './components/sidebar'
 import TopButtons from './components/top_buttons'
 import BottomButtons from './components/bottom_buttons'
+import Comments from './components/comments'
 import graph from './data/javascript'
 import './App.css'
 
@@ -115,7 +116,7 @@ class App extends Component {
 
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
 
-    const rightBarHtml = (currentNode !== null) ?
+    const rightBarDesc = (currentNode !== null) ?
           <div>
             <h3> {currentNode.id}</h3>
             <p/>
@@ -131,12 +132,13 @@ class App extends Component {
         
         <div className={mainContainerClass}>
           <TopButtons />
-          <svg ref={node => this.node = node} width={500} height={500} ></svg>        
+          <svg ref={node => this.node = node} width={500} height={565} ></svg>        
           <BottomButtons />
         </div>
 
         <div className="col s4">
-        {rightBarHtml}
+        {rightBarDesc}
+        <Comments />
         </div>        
       </div>
     )

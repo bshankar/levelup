@@ -116,13 +116,14 @@ class App extends Component {
 
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
 
-    const rightBarDesc = (currentNode !== null) ?
+    const rightBarHtml = (currentNode !== null) ?
           <div>
             <h3> {currentNode.id}</h3>
             <p/>
             <p class="flow-text"> {currentNode.description} </p>
             <p/>
             <h5> Comments </h5>
+          <Comments />
           </div> :
           <p/>
     
@@ -137,8 +138,7 @@ class App extends Component {
         </div>
 
         <div className="col s4">
-        {rightBarDesc}
-        <Comments />
+        {rightBarHtml}
         </div>        
       </div>
     )

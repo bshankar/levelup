@@ -8,12 +8,21 @@ import graph from './data/javascript'
 import './App.css'
 
 class App extends Component {
-
+  
   state = {
     graph: graph,
     currentNode: null
   }
 
+  constructor(props) {
+    super(props)
+    this.state.graph.nodes = this.state.graph.nodes.map(n => ({...n, comments: [
+      { name: "Mukesh", comment: "Master Javascript first dude!" },
+      { name: "Ani", comment: "This site is too dope fam" },
+      { name: "P4v4n", comment: "If I can fly and become invisible that would be the best!"}
+    ]}))
+  }
+  
   createProgressGraph () {
     const svg = d3.select(this.node)
     const width = +svg.attr('width')
@@ -123,7 +132,7 @@ class App extends Component {
             <p class="flow-text"> {currentNode.description} </p>
             <p/>
             <h5> Comments </h5>
-          <Comments />
+          <Comments currentNode={currentNode} />
           </div> :
           <p/>
     

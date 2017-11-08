@@ -2,15 +2,9 @@ import React, { Component } from 'react'
 
 class Comments extends Component {
 
-  state = { comments: [
-    { name: "Mukesh", comment: "Master Javascript first dude!" },
-    { name: "Ani", comment: "This site is too dope fam" },
-    { name: "P4v4n", comment: "If I can fly and become invisible that would be the best!"}
-  ]}
-
   render() {
 
-    const commentList = this.state
+    const commentList = this.props.currentNode
           .comments
           .map(c => <li className="collection-item">
                <p style={{'fontWeight': 'bold'}}>{c.name}</p>

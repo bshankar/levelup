@@ -56,8 +56,6 @@ class App extends Component {
           .on('mouseout', mouseOut)
           .on('click', function (d) { appObj.setState({...appObj.state, currentNode: d}) } )
 
-    node.append('title').text(function (d) { return d.id })
-
     simulation.nodes(nodes).on('tick', ticked)
     simulation.force('link').links(links)
 
@@ -83,11 +81,18 @@ class App extends Component {
 
     function mouseOver (d) {
       tooltipDiv.transition()
-        .duration(200)
+        .duration(400)
         .style('opacity', 0.9)
 
-      const toolTipHtml = '<div><p>Status:</p><h6>' + d.status + '</h6>' +
-            '<p></p><p>Description:</p><p>' + d.description + '</p></div>'
+      const statusToIcons = {
+        'root': '<i class="material-icons">launch</i>',
+        'locked': '<i class="material-icons">block</i>',
+        'unlocked': '<i class="material-icons">event</i>',
+        'progress': '<i class="material-icons">mode_edit</i>',
+        'completed': '<i class="material-icons">done</i>'
+      }
+
+      const toolTipHtml = '<p/>' + statusToIcons[d.status] + '</h6>' + '<p>' + d.description + '</p></div>'
 
       tooltipDiv.html(toolTipHtml)
         .style('left', (d3.event.pageX) + 'px')

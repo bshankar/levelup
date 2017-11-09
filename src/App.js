@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import Grid from 'material-ui/Grid'
+import Drawer from 'material-ui/Drawer'
+import Typography from 'material-ui/Typography'
+import Divider from 'material-ui/Divider'
+
 import * as d3 from 'd3'
 import SideBar from './components/sidebar'
 import TopButtons from './components/top_buttons'
@@ -95,11 +100,11 @@ class App extends Component {
         .style('opacity', 0.9)
 
       const statusToIcons = {
-        'root': '<i class="material-icons">launch</i>',
-        'locked': '<i class="material-icons">block</i>',
-        'unlocked': '<i class="material-icons">event</i>',
-        'progress': '<i class="material-icons">mode_edit</i>',
-        'completed': '<i class="material-icons">done</i>'
+        'root': '<i className="material-icons">launch</i>',
+        'locked': '<i className="material-icons">block</i>',
+        'unlocked': '<i className="material-icons">event</i>',
+        'progress': '<i className="material-icons">mode_edit</i>',
+        'completed': '<i className="material-icons">done</i>'
       }
 
       const toolTipHtml = '<p/>' + statusToIcons[d.status] + '</h6>' + '<p>' + d.description + '</p></div>'
@@ -140,30 +145,32 @@ class App extends Component {
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
 
     const rightBarHtml = (currentNode !== null) ?
-          <div>
-            <h3> {currentNode.id}</h3>
-            <p/>
-            <p class="flow-text"> {currentNode.description} </p>
-            <p/>
-            <h5> Comments </h5>
+          <Drawer type="permanent" openSecondary={true} >
+          <Typography type="title"> {currentNode.id} </Typography>
+          <Typography type="body2"> {currentNode.description} </Typography> 
+
+          <Divider light />
+          <Typography type="title"> Comments </Typography>
           <Comments currentNode={currentNode} addComment={this.addComment.bind(this)} />
-          </div> :
+          </Drawer> :
           <p/>
     
     return (
-      <div className="row">
+        <Grid container>
+        <Grid item xs={3}>
         <SideBar />
+        </Grid>
         
-        <div className={mainContainerClass}>
+        <Grid item xs={5}>
           <TopButtons />
           <svg ref={node => this.node = node} width={500} height={565} ></svg>        
           <BottomButtons />
-        </div>
+        </Grid>
 
-        <div className="col s4">
+        <Grid item xs={4}>
         {rightBarHtml}
-        </div>        
-      </div>
+        </Grid>
+      </Grid>
     )
   }
 }

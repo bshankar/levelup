@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
+import Button from 'material-ui/Button'
 
 class BottomButtons extends Component {
   render () {
     return (
-      <div style={{position: 'relative', right: '0.5em', bottom: '0.5em'}}>
-        <button className="btn waves-effect waves-light btn-flat">Comments
-        </button>
+      <div>
+        <Button>comments</Button>
       </div>
     )
   }

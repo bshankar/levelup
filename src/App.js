@@ -17,7 +17,7 @@ class App extends Component {
   constructor(props) {
     super(props)
     this.state.graph.nodes = this.state.graph.nodes.map(n => ({...n, comments: [
-      { name: "Mukesh", comment: "Master Javascript first dude!" },
+      { name: "Mukesh", comment: "Master Javascript first dude. Everything else is bullshit" },
       { name: "Ani", comment: "This site is too dope fam" },
       { name: "P4v4n", comment: "If I can fly and become invisible that would be the best!"}
     ]}))
@@ -115,6 +115,20 @@ class App extends Component {
         .style('opacity', 0)
     }
   }
+
+  getComment () {
+    const name = document.getElementById('first_name').value
+    const comment = document.getElementById('comment_area').value
+    return {name: name, comment: comment}
+  }
+
+  addComment () {
+    const c = this.getComment()
+    if (c.name !== '' && c.comment !== '') {
+      this.state.currentNode.comments.unshift(c)
+      this.setState({graph: this.state.graph})
+    }
+  }
   
   componentDidMount () {
     this.createProgressGraph()
@@ -122,7 +136,6 @@ class App extends Component {
 
   render () {
     const currentNode = this.state.currentNode
-
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
 
     const rightBarHtml = (currentNode !== null) ?
@@ -132,7 +145,7 @@ class App extends Component {
             <p class="flow-text"> {currentNode.description} </p>
             <p/>
             <h5> Comments </h5>
-          <Comments currentNode={currentNode} />
+          <Comments currentNode={currentNode} addComment={this.addComment.bind(this)} />
           </div> :
           <p/>
     

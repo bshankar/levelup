@@ -14,7 +14,7 @@ class Comments extends Component {
           .map(this.commentToJSX)
 
     return (
-      <div>
+      <form id="comment_form">
         <div className="col s10">
           <input placeholder="name" id="first_name" type="text" class="validate"/>
         </div>
@@ -26,7 +26,7 @@ class Comments extends Component {
         <ul className="collection col s12">
         {commentList}
         </ul>
-      </div>
+      </form>
     )
   }
 }

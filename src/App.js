@@ -128,6 +128,7 @@ class App extends Component {
       this.state.currentNode.comments.unshift(c)
       this.setState({graph: this.state.graph})
     }
+    document.getElementById('comment_form').reset()
   }
   
   componentDidMount () {

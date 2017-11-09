@@ -107,7 +107,7 @@ class App extends Component {
         'completed': '<i className="material-icons">done</i>'
       }
 
-      const toolTipHtml = '<p/>' + statusToIcons[d.status] + '</h6>' + '<p>' + d.description + '</p></div>'
+      const toolTipHtml = '<p/><h5>' + d.status + '</h5><p>' + d.description + '</p></div>'
 
       tooltipDiv.html(toolTipHtml)
         .style('left', (d3.event.pageX) + 'px')

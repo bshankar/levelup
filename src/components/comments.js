@@ -20,11 +20,11 @@ class Comments extends Component {
     return (
         <form id="comment_form">
         <FormControl fullwidth>
-        <TextField id="textfield_name" label="name" fullwidth />
-        <TextField id="textfield_name" label="comment" margin="normal" multiline />
+        <TextField id="first_name" label="name" fullwidth />
+        <TextField id="comment_area" label="comment" margin="normal" multiline />
         </FormControl>
         <br/>
-        <Button raised>Submit</Button>
+        <Button raised onClick={this.props.addComment}>Submit</Button>
         <List>
         {commentList}
         </List>

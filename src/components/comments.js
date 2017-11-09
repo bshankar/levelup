@@ -20,8 +20,8 @@ class Comments extends Component {
     return (
         <form id="comment_form">
         <FormControl fullwidth>
-        <TextField id="textfield_name" label="name" />
-        <TextField id="textfield_name" label="comment" />
+        <TextField id="textfield_name" label="name" fullwidth />
+        <TextField id="textfield_name" label="comment" margin="normal" multiline />
         </FormControl>
         <br/>
         <Button raised>Submit</Button>

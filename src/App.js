@@ -143,18 +143,17 @@ class App extends Component {
   render () {
     const currentNode = this.state.currentNode
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
-
-    const rightBarHtml = (currentNode !== null) ?
-          <Drawer type="permanent" openSecondary={true} >
-          <Typography type="title"> {currentNode.id} </Typography>
-          <Typography type="body2"> {currentNode.description} </Typography> 
-
-          <Divider light />
-          <Typography type="title"> Comments </Typography>
-          <Comments currentNode={currentNode} addComment={this.addComment.bind(this)} />
-          </Drawer> :
-          <p/>
     
+    const rightBarHtml = currentNode !== null ? <div style={{margin: '0.5em'}}>
+      <Typography type="title"> {currentNode.id} </Typography>
+      <p/>    
+      <Typography type="body1"> {currentNode.description} </Typography> 
+      <Divider light />
+      <p/><p/>
+      <Typography type="title"> Comments </Typography>
+      <Comments currentNode={currentNode} addComment={this.addComment.bind(this)} />
+      </div> : <p/>
+
     return (
         <Grid container>
         <Grid item xs={3}>
@@ -163,12 +162,14 @@ class App extends Component {
         
         <Grid item xs={5}>
           <TopButtons />
-          <svg ref={node => this.node = node} width={500} height={565} ></svg>        
+          <svg ref={node => this.node = node} width={500} height={560} ></svg>        
           <BottomButtons />
         </Grid>
 
         <Grid item xs={4}>
+        <Drawer type="persistent" anchor="right" open={currentNode !== null}>
         {rightBarHtml}
+        </Drawer>
         </Grid>
       </Grid>
     )

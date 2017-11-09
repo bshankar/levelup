@@ -3,6 +3,8 @@ import Grid from 'material-ui/Grid'
 import Drawer from 'material-ui/Drawer'
 import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
+import Menu, { MenuItem } from 'material-ui/Menu';
+import Button from 'material-ui/Button'
 
 import * as d3 from 'd3'
 import SideBar from './components/sidebar'
@@ -33,7 +35,9 @@ class App extends Component {
     const width = +svg.attr('width')
     const height = +svg.attr('height')
     const appObj = this
-    const color = d3.scaleOrdinal(d3.schemeCategory20)
+    const color = d3.scaleOrdinal()
+          .domain(['root', 'locked', 'unlocked', 'progress', 'completed'])
+          .range(['#FF9800', '#607D8B', '#CDDC39', '#4CAF50', '#9E9E9E'])
 
     const simulation = d3.forceSimulation()
           .force('link', d3.forceLink().distance(10).strength(0.5))
@@ -147,7 +151,7 @@ class App extends Component {
     const rightBarHtml = currentNode !== null ? <div style={{margin: '0.5em'}}>
       <Typography type="title"> {currentNode.id} </Typography>
       <p/>    
-      <Typography type="body1"> {currentNode.description} </Typography> 
+      <Typography type="body1"> {currentNode.description} </Typography>
       <Divider light />
       <p/><p/>
       <Typography type="title"> Comments </Typography>

@@ -100,14 +100,14 @@ class App extends Component {
         .style('opacity', 0.9)
 
       const statusToIcons = {
-        'root': '<i className="material-icons">launch</i>',
-        'locked': '<i className="material-icons">block</i>',
-        'unlocked': '<i className="material-icons">event</i>',
-        'progress': '<i className="material-icons">mode_edit</i>',
-        'completed': '<i className="material-icons">done</i>'
+        'root': '<i class="material-icons">launch</i>',
+        'locked': '<i class="material-icons">block</i>',
+        'unlocked': '<i class="material-icons">event</i>',
+        'progress': '<i class="material-icons">mode_edit</i>',
+        'completed': '<i class="material-icons">done</i>'
       }
 
-      const toolTipHtml = '<p/><h5>' + d.status + '</h5><p>' + d.description + '</p></div>'
+      const toolTipHtml = '<p/>' + statusToIcons[d.status] + '</h6>' + '<p>' + d.description + '</p></div>'
 
       tooltipDiv.html(toolTipHtml)
         .style('left', (d3.event.pageX) + 'px')

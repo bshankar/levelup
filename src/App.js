@@ -3,7 +3,6 @@ import Grid from 'material-ui/Grid'
 import Drawer from 'material-ui/Drawer'
 import Typography from 'material-ui/Typography'
 import Divider from 'material-ui/Divider'
-import Menu, { MenuItem } from 'material-ui/Menu';
 import Button from 'material-ui/Button'
 
 import * as d3 from 'd3'
@@ -18,7 +17,7 @@ class App extends Component {
   
   state = {
     graph: graph,
-    currentNode: null
+    currentNode: null,
   }
 
   constructor(props) {
@@ -73,7 +72,10 @@ class App extends Component {
           .attr('fill', function (d) { return color(d.status) })
           .on('mouseover', mouseOver)
           .on('mouseout', mouseOut)
-          .on('click', function (d) { appObj.setState({...appObj.state, currentNode: d}) } )
+          .on('click', function (d) {
+            if (appObj.state.currentNode !== d)
+              appObj.setState({...appObj.state, currentNode: d})
+          })
 
     simulation.nodes(nodes).on('tick', ticked)
     simulation.force('link').links(links)
@@ -144,6 +146,33 @@ class App extends Component {
     this.createProgressGraph()
   }
 
+  tryUnlockingNexts() {
+    const i = this.state.graph.nodes.indexOf(this.state.currentNode)
+    this.state.graph.edges[i].filter(n => this.state.graph.nodes[n].status === 'locked')
+      .filter(k => this.state.graph.deps[k].reduce((res, e) => res && this.state.graph.nodes[e].status === 'finished', true))
+      .map(v => {
+        this.state.graph.nodes[v].status = 'unlocked'
+        this.setState({graph: this.state.graph})
+      })
+  }
+
+  handleStatusClick() {
+    const i = this.state.graph.nodes.indexOf(this.state.currentNode)
+    switch (this.state.graph.nodes[i].status) {
+    case 'unlocked':
+      this.state.graph.nodes[i].status = 'progress'
+      this.setState({graph: this.state.graph})
+      break
+    case 'progress':
+      this.state.graph.nodes[i].status = 'finished'
+      this.setState({graph: this.state.graph})
+      this.tryUnlockingNexts(i)
+      break
+    default:
+      break
+    }
+  }
+  
   render () {
     const currentNode = this.state.currentNode
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
@@ -152,12 +181,13 @@ class App extends Component {
       <Typography type="title"> {currentNode.id} </Typography>
       <p/>    
       <Typography type="body1"> {currentNode.description} </Typography>
-      <Divider light />
       <p/><p/>
+      <Button onClick={this.handleStatusClick.bind(this)}> {currentNode.status} </Button>
+      <Divider light />
       <Typography type="title"> Comments </Typography>
       <Comments currentNode={currentNode} addComment={this.addComment.bind(this)} />
       </div> : <p/>
-
+    
     return (
         <Grid container>
         <Grid item xs={3}>

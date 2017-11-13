@@ -127,19 +127,19 @@ class App extends Component {
     }
   }
 
-  getComment () {
-    const name = document.getElementById('first_name').value
-    const comment = document.getElementById('comment_area').value
+  getComment (nameRef, commentRef) {
+    const name = nameRef.value
+    const comment = commentRef.value
     return {name: name, comment: comment}
   }
 
-  addComment () {
-    const c = this.getComment()
+  addComment (nameRef, commentRef, formRef) {
+    const c = this.getComment(nameRef, commentRef)
     if (c.name !== '' && c.comment !== '') {
       this.state.currentNode.comments.unshift(c)
       this.setState({graph: this.state.graph})
     }
-    document.getElementById('comment_form').reset()
+    formRef.reset()
   }
   
   componentDidMount () {
@@ -176,7 +176,7 @@ class App extends Component {
   render () {
     const currentNode = this.state.currentNode
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
-    
+      
     const rightBarHtml = currentNode !== null ? <div style={{margin: '0.5em'}}>
       <Typography type="title"> {currentNode.id} </Typography>
       <p/>    

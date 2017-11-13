@@ -18,13 +18,13 @@ class Comments extends Component {
           .map(this.commentToJSX)
 
     return (
-        <form id="comment_form">
+        <form ref={form => { this.form = form }}>
         <FormControl fullwidth>
-        <TextField id="first_name" label="name" fullwidth />
-        <TextField id="comment_area" label="comment" margin="normal" multiline />
+        <TextField label="name" inputRef={name => { this.name = name }} fullwidth />
+        <TextField label="comment" inputRef={comment => { this.comment = comment }} margin="normal" multiline />
         </FormControl>
         <br/>
-        <Button raised onClick={this.props.addComment}>Submit</Button>
+        <Button raised onClick={() => this.props.addComment(this.name, this.comment, this.form)}>Submit</Button>
         <List>
         {commentList}
         </List>

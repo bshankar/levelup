@@ -177,7 +177,7 @@ class App extends Component {
     const currentNode = this.state.currentNode
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
       
-    const rightBarHtml = currentNode !== null ? <div style={{margin: '0.5em'}}>
+    const rightBarJsx = currentNode !== null ? <div style={{margin: '0.5em'}}>
       <Typography type="title"> {currentNode.id} </Typography>
       <p/>    
       <Typography type="body1"> {currentNode.description} </Typography>
@@ -202,7 +202,7 @@ class App extends Component {
 
         <Grid item xs={4}>
         <Drawer type="persistent" anchor="right" open={currentNode !== null}>
-        {rightBarHtml}
+        {rightBarJsx}
         </Drawer>
         </Grid>
       </Grid>

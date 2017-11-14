@@ -10,6 +10,8 @@ import SideBar from './components/sidebar'
 import TopButtons from './components/top_buttons'
 import BottomButtons from './components/bottom_buttons'
 import Comments from './components/comments'
+import LoginRegisterForm from './components/login'
+
 import graph from './data/javascript'
 import './App.css'
 
@@ -18,6 +20,7 @@ class App extends Component {
   state = {
     graph: graph,
     currentNode: null,
+    loggedin: false
   }
 
   constructor(props) {
@@ -143,7 +146,8 @@ class App extends Component {
   }
   
   componentDidMount () {
-    this.createProgressGraph()
+    if (this.node !== undefined)
+      this.createProgressGraph()
   }
 
   tryUnlockingNexts() {
@@ -176,36 +180,38 @@ class App extends Component {
   render () {
     const currentNode = this.state.currentNode
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
-      
-    const rightBarJsx = currentNode !== null ? <div style={{margin: '0.5em'}}>
-      <Typography type="title"> {currentNode.id} </Typography>
-      <p/>    
-      <Typography type="body1"> {currentNode.description} </Typography>
-      <p/><p/>
-      <Button onClick={this.handleStatusClick.bind(this)}> {currentNode.status} </Button>
-      <Divider light />
-      <Typography type="title"> Comments </Typography>
-      <Comments currentNode={currentNode} addComment={this.addComment.bind(this)} />
-      </div> : <p/>
     
-    return (
-        <Grid container>
-          <Grid item xs={3}>
-            <SideBar />
-          </Grid>
-        
-          <Grid item xs={5}>
-            <TopButtons />
-              <svg ref={node => this.node = node} width={500} height={560} ></svg>
-            <BottomButtons />
-          </Grid>
+    const rightBarJsx = currentNode !== null ? <div style={{margin: '0.5em'}}>
+    <Typography type="title"> {currentNode.id} </Typography>
+    <p/>    
+    <Typography type="body1"> {currentNode.description} </Typography>
+    <p/><p/>
+    <Button onClick={this.handleStatusClick.bind(this)}> {currentNode.status} </Button>
+    <Divider light />
+    <Typography type="title"> Comments </Typography>
+    <Comments currentNode={currentNode} addComment={this.addComment.bind(this)} />
+    </div> : <p/>
 
-          <Grid item xs={4}>
-            <Drawer type="persistent" anchor="right" open={currentNode !== null}>
-              {rightBarJsx}
-            </Drawer>
-          </Grid>
-        </Grid>
+    const mainContainerJsx = this.state.loggedin ?  <div><TopButtons />
+    <svg ref={node => this.node = node} width={500} height={560} ></svg>
+    <BottomButtons /></div> : <LoginRegisterForm />
+
+    return (
+      <Grid container>
+      <Grid item xs={3}>
+      <SideBar open={this.state.loggedin} />
+      </Grid>
+      
+      <Grid item xs={5}>
+      {mainContainerJsx}
+      </Grid>
+
+      <Grid item xs={4}>
+      <Drawer type="persistent" anchor="right" open={currentNode !== null}>
+      {rightBarJsx}
+      </Drawer>
+      </Grid>
+      </Grid>
     )
   }
 }

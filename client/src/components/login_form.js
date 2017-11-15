@@ -4,6 +4,8 @@ import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
 import Typography from 'material-ui/Typography'
 
+import axios from 'axios'
+
 class LoginRegisterForm extends Component {
 
   state = {loginErrorMsg: ''}
@@ -19,16 +21,19 @@ class LoginRegisterForm extends Component {
     let errorMsg = ''
     if (!this.isValidUser(username)) errorMsg = 'Username cannot be empty or a number'
     else if (!this.isValidPass(password)) errorMsg = 'Password cannot be empty'
-    else {
-      const data = [username, password]
-
-      fetch('/login', {method: "POST", body: data}).then(res => {
-        console.log(res)
-        if (res.ok) console.log(res)
-        else errorMsg = 'Error in response'
-      }, e => errorMsg = 'Server not found')
-    }
-    this.setState({...this.state, loginErrorMsg: errorMsg})
+    else if (errorMsg === '') {
+      const formObj = this
+      axios.post('/login', {
+        username: username,
+        password: password
+      }).then(function (response) {
+        if (response.data === 'ok') {
+          // login
+        } else formObj.setState({...formObj.state, loginErrorMsg: response.data})
+      }).catch(function (error) {
+        console.log(error)
+      })
+    } else this.setState({...this.state, loginErrorMsg: errorMsg})
   }
 
   isValidUser (username) {

@@ -7,12 +7,32 @@ import Typography from 'material-ui/Typography'
 
 class LoginRegisterForm extends Component {
 
+  state = {loginErrorMsg: ''}
+
+  
   register () {
     
   }
 
   login () {
-    
+    const username = this.usernameLogin.value
+    const password = this.passwordLogin.value
+    let errorMsg = ''
+    if (!this.isValidUser(username)) errorMsg = 'Username cannot be empty or a number'
+    else if (!this.isValidPass(password)) errorMsg = 'Password cannot be empty'
+    else {
+      // attempt login at the backend
+    }
+
+    this.setState({...this.state, loginErrorMsg: errorMsg})
+  }
+
+  isValidUser (username) {
+    return username !== '' && isNaN(username)
+  }
+
+  isValidPass (password) {
+    return password !== ''
   }
 
   onChangeConfirmPassword () {
@@ -21,6 +41,7 @@ class LoginRegisterForm extends Component {
 
   render () {
     return (
+      <div>
       <Grid container>
 
       <Grid item xs={6}>
@@ -41,11 +62,13 @@ class LoginRegisterForm extends Component {
       <Typography type="headline">Login</Typography>
       <TextField label="username" inputRef={el => this.usernameLogin = el} />
       <TextField label="password" inputRef={el => this.passwordLogin = el} type="password" />
-      <Button raised onClick={this.login}>Login</Button>
+      <Button raised onClick={this.login.bind(this)}>Login</Button>
       </form>
       </Grid>
 
       </Grid>
+      <Typography type="title" style={{margin: "2em", color: "red"}}> {this.state.loginErrorMsg} </Typography> 
+      </div>
     )
   }
 }

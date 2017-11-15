@@ -7,26 +7,34 @@ import Typography from 'material-ui/Typography'
 
 class LoginRegisterForm extends Component {
 
+  register () {
+    
+  }
+
+  login () {
+    
+  }
+
   render () {
     return (
       <Grid container>
 
       <Grid item xs={6}>
-      <form>
+      <form ref={el => this.registerForm = el}>
       <Typography type="headline">Register</Typography>
-      <TextField label="username" />
-      <TextField label="password" />
-      <TextField label="confirm password" />
-      <Button raised>Register</Button>
+      <TextField label="username" inputRef={el => this.usernameRegister = el} />
+      <TextField label="password" inputRef={el => this.passwordRegister = el} />
+      <TextField label="confirm password" inputRef={el => this.confirmPassword = el} />
+      <Button raised onClick={this.register}>Register</Button>
       </form>
       </Grid>
 
       <Grid item xs={6}>
-      <form>
+      <form ref={el => this.loginForm = el}>
       <Typography type="headline">Login</Typography>
-      <TextField label="username" />
-      <TextField label="password" />
-      <Button raised>Login</Button>
+      <TextField label="username" inputRef={el => this.usernameLogin = el} />
+      <TextField label="password" inputRef={el => this.passwordLogin = el} />
+      <Button raised onClick={this.login}>Login</Button>
       </form>
       </Grid>
 

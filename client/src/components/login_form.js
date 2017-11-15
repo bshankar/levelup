@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import Grid from 'material-ui/Grid'
 import Button from 'material-ui/Button'
 import TextField from 'material-ui/TextField'
-import { FormControl, FormHelperText } from 'material-ui/Form'
 import Typography from 'material-ui/Typography'
 
 class LoginRegisterForm extends Component {
@@ -21,9 +20,14 @@ class LoginRegisterForm extends Component {
     if (!this.isValidUser(username)) errorMsg = 'Username cannot be empty or a number'
     else if (!this.isValidPass(password)) errorMsg = 'Password cannot be empty'
     else {
-      // attempt login at the backend
-    }
+      const data = [username, password]
 
+      fetch('/login', {method: "POST", body: data}).then(res => {
+        console.log(res)
+        if (res.ok) console.log(res)
+        else errorMsg = 'Error in response'
+      }, e => errorMsg = 'Server not found')
+    }
     this.setState({...this.state, loginErrorMsg: errorMsg})
   }
 

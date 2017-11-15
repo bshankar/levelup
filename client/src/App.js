@@ -10,7 +10,7 @@ import SideBar from './components/sidebar'
 import TopButtons from './components/top_buttons'
 import BottomButtons from './components/bottom_buttons'
 import Comments from './components/comments'
-import LoginRegisterForm from './components/login'
+import LoginRegisterForm from './components/login_form'
 
 import graph from './data/javascript'
 import './App.css'

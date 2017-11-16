@@ -14,15 +14,18 @@ class LoginRegisterForm extends Component {
     const username = this.usernameRegister.value
     const password = this.passwordRegister.value
     const confirmPassword = this.confirmPassword.value
+    const errorMsg = this.checkUsername(username) ||
+                     this.checkPassword(password) ||
+                     (password !== confirmPassword ? 'passwords don\'t match' : '') ||
+                     this.tryServerRegister(username, password)
 
-    let errorMsg = ''
-    if (!this.isValidUser(username)) errorMsg = 'Username cannot be empty or a number'
-    else if (!this.isValidPass(password)) errorMsg = 'Password cannot be empty'
-    else if (password !== confirmPassword) errorMsg = 'Passwords don\'t match'
-    else if (errorMsg === '') {
-      // register on the server
-    }
     this.setState({...this.state, errorMsg: errorMsg})
+  }
+
+  tryServerRegister (username, password) {
+    this.contactServer('/register', username, password, () =>
+      {console.log('registered ', username)}
+    )
   }
 
   login () {
@@ -44,16 +47,19 @@ class LoginRegisterForm extends Component {
   }
 
   tryServerLogin (username, password) {
-    const formObj = this
-    const errorMsg = ''
+    this.contactServer('/login', username, password, () =>
+      {console.log(username, ' logged in')}
+    )
+  }
 
-    axios.post('/login', {
+  contactServer(url, username, password, onSucess) {
+    const formObj = this
+    axios.post(url, {
       username: username,
       password: password
     }).then(function (response) {
-      if (response.data === 'ok') {
-        // login
-      } else formObj.setState({...formObj.state, errorMsg: response.data})
+      if (response.data === 'ok') onSucess()
+      else formObj.setState({...formObj.state, errorMsg: response.data})
     }).catch(function (error) {
       formObj.setState({...formObj.state, errorMsg: error.message})
     })

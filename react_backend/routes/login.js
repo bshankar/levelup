@@ -18,9 +18,10 @@ router.post('/', function (req, res, next) {
 
                       const pass = dbres[0]
                       const active = dbres[1]
-                      if (pass !== null && active !== 0) {
+                      if (pass !== null && pass === req.body.password && active !== '0') {
                         res.send('ok')
-                      } else res.send('invalid username/password')
+                      } else if (active === '0') res.send('this account is closed')
+                        else res.send('invalid username/password')
                     })
 })
 

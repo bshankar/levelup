@@ -8,11 +8,21 @@ import axios from 'axios'
 
 class LoginRegisterForm extends Component {
 
-  state = {loginErrorMsg: ''}
-
+  state = {errorMsg: ''}
   
   register () {
-    
+    const username = this.usernameRegister.value
+    const password = this.passwordRegister.value
+    const confirmPassword = this.confirmPassword.value
+
+    let errorMsg = ''
+    if (!this.isValidUser(username)) errorMsg = 'Username cannot be empty or a number'
+    else if (!this.isValidPass(password)) errorMsg = 'Password cannot be empty'
+    else if (password !== confirmPassword) errorMsg = 'Passwords don\'t match'
+    else if (errorMsg === '') {
+      // register on the server
+    }
+    this.setState({...this.state, errorMsg: errorMsg})
   }
 
   login () {
@@ -22,6 +32,7 @@ class LoginRegisterForm extends Component {
     if (!this.isValidUser(username)) errorMsg = 'Username cannot be empty or a number'
     else if (!this.isValidPass(password)) errorMsg = 'Password cannot be empty'
     else if (errorMsg === '') {
+      // try to login on the server
       const formObj = this
       axios.post('/login', {
         username: username,
@@ -29,11 +40,12 @@ class LoginRegisterForm extends Component {
       }).then(function (response) {
         if (response.data === 'ok') {
           // login
-        } else formObj.setState({...formObj.state, loginErrorMsg: response.data})
+        } else formObj.setState({...formObj.state, errorMsg: response.data})
       }).catch(function (error) {
         console.log(error)
       })
-    } else this.setState({...this.state, loginErrorMsg: errorMsg})
+    }
+    this.setState({...this.state, errorMsg: errorMsg})
   }
 
   isValidUser (username) {
@@ -42,10 +54,6 @@ class LoginRegisterForm extends Component {
 
   isValidPass (password) {
     return password !== ''
-  }
-
-  onChangeConfirmPassword () {
-    
   }
 
   render () {
@@ -60,9 +68,8 @@ class LoginRegisterForm extends Component {
       <TextField label="password" inputRef={el => this.passwordRegister = el} type="password" />
       <TextField label="confirm password"
         inputRef={el => this.confirmPassword = el}
-        type="password"
-        onChange={this.onChangeConfirmPassword} />
-      <Button raised onClick={this.register}>Register</Button>
+        type="password" />
+      <Button raised onClick={this.register.bind(this)}>Register</Button>
       </form>
       </Grid>
 
@@ -76,7 +83,7 @@ class LoginRegisterForm extends Component {
       </Grid>
 
       </Grid>
-      <Typography type="title" style={{margin: "2em", color: "red"}}> {this.state.loginErrorMsg} </Typography> 
+      <Typography type="title" style={{margin: "2em", color: "red"}}> {this.state.errorMsg} </Typography> 
       </div>
     )
   }

@@ -28,32 +28,35 @@ class LoginRegisterForm extends Component {
   login () {
     const username = this.usernameLogin.value
     const password = this.passwordLogin.value
-    let errorMsg = ''
-    if (!this.isValidUser(username)) errorMsg = 'Username cannot be empty or a number'
-    else if (!this.isValidPass(password)) errorMsg = 'Password cannot be empty'
-    else if (errorMsg === '') {
-      // try to login on the server
-      const formObj = this
-      axios.post('/login', {
-        username: username,
-        password: password
-      }).then(function (response) {
-        if (response.data === 'ok') {
-          // login
-        } else formObj.setState({...formObj.state, errorMsg: response.data})
-      }).catch(function (error) {
-        console.log(error)
-      })
-    }
+    const errorMsg = this.checkUsername(username) ||
+                     this.checkPassword(password) ||
+                     this.tryServerLogin(username, password)
+
     this.setState({...this.state, errorMsg: errorMsg})
   }
 
-  isValidUser (username) {
-    return username !== '' && isNaN(username)
+  checkUsername (username) {
+    return username !== '' && isNaN(username) ? '' :'Username cannot be empty or a number'
   }
 
-  isValidPass (password) {
-    return password !== ''
+  checkPassword (password, confirmPassword) {
+    return password !== '' ? '' : 'Password cannot be empty'
+  }
+
+  tryServerLogin (username, password) {
+    const formObj = this
+    const errorMsg = ''
+
+    axios.post('/login', {
+      username: username,
+      password: password
+    }).then(function (response) {
+      if (response.data === 'ok') {
+        // login
+      } else formObj.setState({...formObj.state, errorMsg: response.data})
+    }).catch(function (error) {
+      formObj.setState({...formObj.state, errorMsg: error.message})
+    })
   }
 
   render () {

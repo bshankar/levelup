@@ -23,9 +23,10 @@ class LoginRegisterForm extends Component {
   }
 
   tryServerRegister (username, password) {
-    this.contactServer('/register', username, password, () =>
-      {console.log('registered ', username)}
-    )
+    this.contactServer('/register', username, password, () => {
+      this.registerForm.reset()
+      console.log('registered ', username)
+    })
   }
 
   login () {
@@ -47,9 +48,9 @@ class LoginRegisterForm extends Component {
   }
 
   tryServerLogin (username, password) {
-    this.contactServer('/login', username, password, () =>
-      {console.log(username, ' logged in')}
-    )
+    this.contactServer('/login', username, password, () => {
+      console.log(username, ' logged in')
+    })
   }
 
   contactServer(url, username, password, onSucess) {

@@ -1,7 +1,6 @@
 var express = require('express')
 var redis = require('redis')
 var bcrypt = require('bcrypt')
-
 var router = express.Router()
 
 var redisClient = redis.createClient()

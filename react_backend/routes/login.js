@@ -1,7 +1,7 @@
-var express = require('express')
-var bcrypt = require('bcrypt')
-var redisClient = require('../connect_database')
-var router = express.Router()
+const express = require('express')
+const bcrypt = require('bcrypt')
+const redisClient = require('../connect_database')
+const router = express.Router()
 
 router.post('/', function (req, res, next) {
   redisClient.hmget('user:' + req.body.username,

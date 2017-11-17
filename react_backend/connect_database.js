@@ -1,6 +1,6 @@
-var redis = require('redis')
+const redis = require('redis')
 
-var redisClient = redis.createClient()
+const redisClient = redis.createClient()
 redisClient.on('connect', function () {
   console.log('database connected')
 })

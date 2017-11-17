@@ -68,7 +68,7 @@ class LoginRegisterForm extends Component {
 
   render () {
     return (
-      <div>
+      <div style={{marginTop: '10em', marginLeft: '5em'}}>
       <Grid container>
 
       <Grid item xs={6}>
@@ -79,7 +79,7 @@ class LoginRegisterForm extends Component {
       <TextField label="confirm password"
         inputRef={el => this.confirmPassword = el}
         type="password" />
-      <Button raised onClick={this.register.bind(this)}>Register</Button>
+      <Button raised onClick={this.register.bind(this)} style={{marginTop: '1em'}}>Register</Button>
       </form>
       </Grid>
 
@@ -88,7 +88,7 @@ class LoginRegisterForm extends Component {
       <Typography type="headline">Login</Typography>
       <TextField label="username" inputRef={el => this.usernameLogin = el} />
       <TextField label="password" inputRef={el => this.passwordLogin = el} type="password" />
-      <Button raised onClick={this.login.bind(this)}>Login</Button>
+      <Button raised onClick={this.login.bind(this)} style={{marginTop: '1em'}}>Login</Button>
       </form>
       </Grid>
 

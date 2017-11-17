@@ -1,12 +1,7 @@
 var express = require('express')
-var redis = require('redis')
 var bcrypt = require('bcrypt')
+var redisClient = require('../connect_database')
 var router = express.Router()
-
-var redisClient = redis.createClient()
-redisClient.on('connect', function () {
-  console.log('database connected')
-})
 
 router.post('/', function (req, res, next) {
   redisClient.hmget('user:' + req.body.username,

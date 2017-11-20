@@ -20,7 +20,7 @@ class App extends Component {
   state = {
     graph: graph,
     currentNode: null,
-    loggedin: false
+    loggedin: null
   }
 
   constructor(props) {
@@ -193,24 +193,24 @@ class App extends Component {
     </div> : <p/>
 
     const mainContainerJsx = this.state.loggedin ?  <div><TopButtons />
-    <svg ref={node => this.node = node} width={500} height={560} ></svg>
-    <BottomButtons /></div> : <LoginRegisterForm />
+      <svg ref={node => this.node = node} width={500} height={560} ></svg>
+      <BottomButtons /></div> : <LoginRegisterForm />
 
     return (
       <Grid container>
-      <Grid item xs={3}>
-      <SideBar open={this.state.loggedin} />
-      </Grid>
+        <Grid item xs={3}>
+          <SideBar open={this.state.loggedin} />
+        </Grid>
       
-      <Grid item xs={5}>
-      {mainContainerJsx}
-      </Grid>
+        <Grid item xs={5}>
+          {mainContainerJsx}
+        </Grid>
 
-      <Grid item xs={4}>
-      <Drawer type="persistent" anchor="right" open={currentNode !== null}>
-      {rightBarJsx}
-      </Drawer>
-      </Grid>
+        <Grid item xs={4}>
+          <Drawer type="persistent" anchor="right" open={currentNode !== null}>
+            {rightBarJsx}
+          </Drawer>
+        </Grid>
       </Grid>
     )
   }

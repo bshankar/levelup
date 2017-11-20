@@ -48,9 +48,8 @@ class LoginRegisterForm extends Component {
   }
 
   tryServerLogin (username, password) {
-    this.contactServer('/login', username, password, () => {
-      console.log(username, ' logged in')
-    })
+    this.contactServer('/login', username, password,
+                       () => this.props.afterLogin(username))
   }
 
   contactServer(url, username, password, onSucess) {

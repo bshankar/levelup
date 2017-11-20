@@ -11,25 +11,19 @@ import TopButtons from './components/top_buttons'
 import BottomButtons from './components/bottom_buttons'
 import Comments from './components/comments'
 import LoginRegisterForm from './components/login_form'
-
-import graph from './data/javascript'
+import axios from 'axios'
 import './App.css'
 
 class App extends Component {
   
   state = {
-    graph: graph,
+    graph: null,
     currentNode: null,
     loggedin: null
   }
 
   constructor(props) {
     super(props)
-    this.state.graph.nodes = this.state.graph.nodes.map(n => ({...n, comments: [
-      { name: "Mukesh", comment: "Master Javascript first dude. Everything else is bullshit" },
-      { name: "Ani", comment: "This site is too dope fam" },
-      { name: "P4v4n", comment: "If I can fly and become invisible that would be the best!"}
-    ]}))
   }
   
   createProgressGraph () {
@@ -176,6 +170,16 @@ class App extends Component {
       break
     }
   }
+
+  openUserHome (user) {
+    const appObj = this
+    axios.get('/users/' + user + '/graph/javascript').then(function (res) {
+      appObj.setState({graph: res.data, loggedin: user})
+      appObj.createProgressGraph()
+    }).catch(function (err) {
+      console.log(err.message)
+    })
+  }
   
   render () {
     const currentNode = this.state.currentNode
@@ -194,7 +198,7 @@ class App extends Component {
 
     const mainContainerJsx = this.state.loggedin ?  <div><TopButtons />
       <svg ref={node => this.node = node} width={500} height={560} ></svg>
-      <BottomButtons /></div> : <LoginRegisterForm />
+      <BottomButtons /></div> : <LoginRegisterForm afterLogin={this.openUserHome.bind(this)} />
 
     return (
       <Grid container>

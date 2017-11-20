@@ -22,10 +22,6 @@ class App extends Component {
     loggedin: null
   }
 
-  constructor(props) {
-    super(props)
-  }
-  
   createProgressGraph () {
     const svg = d3.select(this.node)
     const width = +svg.attr('width')
@@ -177,7 +173,7 @@ class App extends Component {
       appObj.setState({graph: res.data, loggedin: user})
       appObj.createProgressGraph()
     }).catch(function (err) {
-      console.log(err.message)
+      console.log(err)
     })
   }
   

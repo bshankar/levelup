@@ -13,7 +13,7 @@ import Comments from './components/comments'
 import LoginRegisterForm from './components/login_form'
 
 import createProgressGraph from './lib/draw_graph'
-import {openUserHome} from './lib/axios_utils'
+import {openUserHome, closeSession} from './lib/axios_utils'
 import {tryUnlockingNexts, handleStatusClick} from './lib/graph_logic'
 import {getComment, addComment} from './lib/form_utils'
 import './App.css'
@@ -30,6 +30,7 @@ class App extends Component {
     super(props)
     this.createProgressGraph = createProgressGraph.bind(this)
     this.openUserHome = openUserHome.bind(this)
+    this.closeSession = closeSession.bind(this)
     this.handleStatusClick = handleStatusClick.bind(this)
     this.tryUnlockingNexts = tryUnlockingNexts.bind(this)
     this.getComment = getComment.bind(this)
@@ -57,7 +58,7 @@ class App extends Component {
           <Comments currentNode={currentNode} addComment={this.addComment} />
           </div> : <p/>
 
-    const mainContainerJsx = this.state.loggedin ?  <div><TopButtons />
+    const mainContainerJsx = this.state.loggedin ?  <div><TopButtons logout={this.closeSession} />
       <svg ref={node => this.node = node} width={500} height={560} ></svg>
       <BottomButtons /></div> : <LoginRegisterForm afterLogin={this.openUserHome} />
 

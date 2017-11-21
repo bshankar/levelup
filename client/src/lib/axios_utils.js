@@ -18,4 +18,13 @@ function openUserHome () {
   })
 }
 
-export {openUserHome}
+function closeSession () {
+  const appObj = this
+  axios.get('/logout', {withCredentials: true}).then(function (res) {
+    appObj.setState({loggedin: null})
+  }).catch(function (err) {
+    throw err
+  })
+}
+
+export {openUserHome, closeSession}

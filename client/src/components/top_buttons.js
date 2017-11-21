@@ -7,7 +7,7 @@ class TopButtons extends Component {
       <div style={{position: 'relative', right: '0.5em', top: '0.5em'}}>
         <Button>All Trophies (0)</Button>
         <Button>Level 0</Button>
-        <Button>Logout</Button>
+        <Button onClick={this.props.logout}>Logout</Button>
       </div>
     )
   }

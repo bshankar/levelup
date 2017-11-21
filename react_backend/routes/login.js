@@ -15,12 +15,18 @@ router.post('/', function (req, res, next) {
                       if (hash !== null && active !== '0') {
                         bcrypt.compare(req.body.password, hash, function (berr, bres) {
                           if (berr) res.send(berr.message)
-                          if (bres === true) res.send('ok')
-                          else res.send('password is wrong')
+                          if (bres === true) {
+                            req.session.user = req.body.username
+                            res.redirect('/dashboard')
+                          } else res.send('password is wrong')
                         })
                       } else if (active === '0') res.send('this account is closed')
                         else res.send('user doesn\'t exist')
                     })
+})
+
+router.get('/', function (req, res, next) {
+  res.send('Redirected to login')
 })
 
 module.exports = router

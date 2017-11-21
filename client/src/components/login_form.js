@@ -58,7 +58,7 @@ class LoginRegisterForm extends Component {
       username: username,
       password: password
     }).then(function (response) {
-      if (response.data === 'ok') onSucess()
+      if (response.data === 'ok' || response.data.user !== undefined) onSucess()
       else formObj.setState({...formObj.state, errorMsg: response.data})
     }).catch(function (error) {
       formObj.setState({...formObj.state, errorMsg: error.message})

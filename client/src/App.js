@@ -63,8 +63,6 @@ class App extends Component {
       <svg ref={node => this.node = node} width={500} height={560} ></svg>
       <BottomButtons /></div>
     
-    console.log(this.state.loggedin, mainContainerJsx)
-
     return (
       <Grid container>
         <Grid item xs={3}>

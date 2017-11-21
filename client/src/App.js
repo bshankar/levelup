@@ -13,6 +13,9 @@ import Comments from './components/comments'
 import LoginRegisterForm from './components/login_form'
 
 import createProgressGraph from './lib/draw_graph'
+import {openUserHome} from './lib/axios_utils'
+import {tryUnlockingNexts, handleStatusClick} from './lib/graph_logic'
+import {getComment, addComment} from './lib/form_utils'
 import './App.css'
 
 class App extends Component {
@@ -26,63 +29,16 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.createProgressGraph = createProgressGraph.bind(this)
+    this.openUserHome = openUserHome.bind(this)
+    this.handleStatusClick = handleStatusClick.bind(this)
+    this.tryUnlockingNexts = tryUnlockingNexts.bind(this)
+    this.getComment = getComment.bind(this)
+    this.addComment = addComment.bind(this)
   }
 
   componentDidMount () {
     if (this.node !== undefined)
       this.createProgressGraph()
-  }
-
-  getComment (nameRef, commentRef) {
-    const name = nameRef.value
-    const comment = commentRef.value
-    return {name: name, comment: comment}
-  }
-
-  addComment (nameRef, commentRef, formRef) {
-    const c = this.getComment(nameRef, commentRef)
-    if (c.name !== '' && c.comment !== '') {
-      this.state.currentNode.comments.unshift(c)
-      this.setState({graph: this.state.graph})
-    }
-    formRef.reset()
-  }
-
-  tryUnlockingNexts() {
-    const i = this.state.graph.nodes.indexOf(this.state.currentNode)
-    this.state.graph.edges[i].filter(n => this.state.graph.nodes[n].status === 'locked')
-      .filter(k => this.state.graph.deps[k].reduce((res, e) => res && this.state.graph.nodes[e].status === 'finished', true))
-      .map(v => {
-        this.state.graph.nodes[v].status = 'unlocked'
-        this.setState({graph: this.state.graph})
-      })
-  }
-
-  handleStatusClick() {
-    const i = this.state.graph.nodes.indexOf(this.state.currentNode)
-    switch (this.state.graph.nodes[i].status) {
-    case 'unlocked':
-      this.state.graph.nodes[i].status = 'progress'
-      this.setState({graph: this.state.graph})
-      break
-    case 'progress':
-      this.state.graph.nodes[i].status = 'finished'
-      this.setState({graph: this.state.graph})
-      this.tryUnlockingNexts(i)
-      break
-    default:
-      break
-    }
-  }
-
-  openUserHome (user) {
-    const appObj = this
-    axios.get('/users/' + user + '/graph/javascript').then(function (res) {
-      appObj.setState({graph: res.data, loggedin: user})
-      appObj.createProgressGraph()
-    }).catch(function (err) {
-      throw err
-    })
   }
 
   render () {
@@ -94,15 +50,15 @@ class App extends Component {
           <p/>    
           <Typography type="body1"> {currentNode.description} </Typography>
           <p/><p/>
-          <Button onClick={this.handleStatusClick.bind(this)}> {currentNode.status} </Button>
+          <Button onClick={this.handleStatusClick}> {currentNode.status} </Button>
           <Divider light />
           <Typography type="title"> Comments </Typography>
-          <Comments currentNode={currentNode} addComment={this.addComment.bind(this)} />
+          <Comments currentNode={currentNode} addComment={this.addComment} />
           </div> : <p/>
 
     const mainContainerJsx = this.state.loggedin ?  <div><TopButtons />
       <svg ref={node => this.node = node} width={500} height={560} ></svg>
-      <BottomButtons /></div> : <LoginRegisterForm afterLogin={this.openUserHome.bind(this)} />
+      <BottomButtons /></div> : <LoginRegisterForm afterLogin={this.openUserHome} />
 
     return (
       <Grid container>

@@ -23,7 +23,6 @@ class App extends Component {
   state = {
     graph: null,
     currentNode: null,
-    loggedin: null
   }
 
   constructor (props) {
@@ -58,9 +57,13 @@ class App extends Component {
           <Comments currentNode={currentNode} addComment={this.addComment} />
           </div> : <p/>
 
-    const mainContainerJsx = this.state.loggedin ?  <div><TopButtons logout={this.closeSession} />
+    let mainContainerJsx = <Typography type="title">Loading...</Typography>
+    if (this.state.loggedin === null) mainContainerJsx = <LoginRegisterForm afterLogin={this.openUserHome} />
+    else if (this.state.loggedin !== undefined) mainContainerJsx = <div><TopButtons logout={this.closeSession} />
       <svg ref={node => this.node = node} width={500} height={560} ></svg>
-      <BottomButtons /></div> : <LoginRegisterForm afterLogin={this.openUserHome} />
+      <BottomButtons /></div>
+    
+    console.log(this.state.loggedin, mainContainerJsx)
 
     return (
       <Grid container>

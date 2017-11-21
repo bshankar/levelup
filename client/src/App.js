@@ -34,6 +34,7 @@ class App extends Component {
     this.tryUnlockingNexts = tryUnlockingNexts.bind(this)
     this.getComment = getComment.bind(this)
     this.addComment = addComment.bind(this)
+    this.openUserHome()
   }
 
   componentDidMount () {

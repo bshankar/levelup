@@ -1,10 +1,18 @@
 import axios from 'axios'
 
-function openUserHome (user) {
+function openUserHome () {
   const appObj = this
-  axios.get('/users/' + user + '/graph/javascript').then(function (res) {
-    appObj.setState({graph: res.data, loggedin: user})
-    appObj.createProgressGraph()
+  axios.get('/dashboard', {withCredentials: true}).then(function (res) {
+    if (res.data.user !== undefined) {
+      axios.get('/users/' + res.data.user + '/graph/' + res.data.currentGraph,
+                {withCredentials: true}).then(function (rres) {
+                  console.log(rres.data, res.data.user)
+                  appObj.setState({graph: rres.data, loggedin: res.data.user})
+                  appObj.createProgressGraph()
+                }).catch(function (err) {
+                  throw err
+                })
+    } else appObj.setState({loggedin: null})
   }).catch(function (err) {
     throw err
   })

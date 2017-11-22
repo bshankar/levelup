@@ -43,6 +43,10 @@ class App extends Component {
       this.createProgressGraph()
   }
 
+  setMode (mode) {
+    this.setState({mode: mode})
+  }
+
   render () {
     const currentNode = this.state.currentNode
     const mainContainerClass = 'col ' + (currentNode !== null ? 's6' : 's10')
@@ -62,7 +66,7 @@ class App extends Component {
     if (this.state.loggedin === null) mainContainerJsx = <LoginRegisterForm afterLogin={this.openUserHome} />
     else if (this.state.loggedin !== undefined) mainContainerJsx = <div><TopButtons logout={this.closeSession} />
       <svg ref={node => this.node = node} width={500} height={560} ></svg>
-      <BottomButtons mode={this.state.mode}/></div>
+      <BottomButtons mode={this.state.mode} setMode={this.setMode.bind(this)} /></div>
     
     return (
       <Grid container>

@@ -23,6 +23,7 @@ class App extends Component {
   state = {
     graph: null,
     currentNode: null,
+    mode: 'readonly'
   }
 
   constructor (props) {
@@ -61,7 +62,7 @@ class App extends Component {
     if (this.state.loggedin === null) mainContainerJsx = <LoginRegisterForm afterLogin={this.openUserHome} />
     else if (this.state.loggedin !== undefined) mainContainerJsx = <div><TopButtons logout={this.closeSession} />
       <svg ref={node => this.node = node} width={500} height={560} ></svg>
-      <BottomButtons /></div>
+      <BottomButtons mode={this.state.mode}/></div>
     
     return (
       <Grid container>

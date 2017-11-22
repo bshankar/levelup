@@ -13,6 +13,7 @@ import TopButtons from './components/top_buttons'
 import BottomButtons from './components/bottom_buttons'
 import Comments from './components/comments'
 import LoginRegisterForm from './components/login_form'
+import StatusListMenu from './components/selected_menu'
 
 import createProgressGraph from './lib/draw_graph'
 import {openUserHome, closeSession} from './lib/axios_utils'
@@ -73,7 +74,13 @@ class App extends Component {
                           <TextField label="description" value={currentNode.description} multiline margin="normal"></TextField>
                         </FormControl>
                         <br/>
+                        <StatusListMenu currentNode={currentNode} />
                         <Button raised>save</Button>
+                        <Divider light style={{"margin": "1em"}} />
+                        <div style={{"marginTop": "0.5em"}}>
+                          <Button>add child</Button>
+                          <Button>add edge</Button>
+                        </div>
                       </form>
       }
     }

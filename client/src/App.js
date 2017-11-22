@@ -79,7 +79,7 @@ class App extends Component {
                         <Divider light style={{"margin": "1em"}} />
                         <div style={{"marginTop": "0.5em"}}>
                           <Button>add child</Button>
-                          <Button>add edge</Button>
+                          <Button>delete</Button>
                         </div>
                       </form>
       }

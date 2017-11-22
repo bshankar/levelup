@@ -11,6 +11,8 @@ class BottomButtons extends Component {
       : <div>
           <Button>add node</Button>
           <Button>add edge</Button>
+          <Button>delete node</Button>
+          <Button>delete edge</Button>
           <Button>save</Button>
           <Button onClick={() => this.props.setMode('readonly')}>done</Button>  
         </div>

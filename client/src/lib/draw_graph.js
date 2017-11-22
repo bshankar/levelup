@@ -18,7 +18,8 @@ function createProgressGraph () {
 
   const nodes = this.state.graph.nodes
   const nodeById = d3.map(nodes, function (d) { return d.id })
-  const links = this.state.graph.links
+  const links = this.state.graph.edges.reduce((arr, e, i) =>
+    arr.concat(e.map(n => ({source: nodes[i].id, target: nodes[n].id}))), [])
   const bilinks = []
 
   links.forEach(function (link) {

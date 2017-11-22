@@ -1,4 +1,5 @@
 import * as d3 from 'd3'
+import {statuses, statusColors} from './task_status'
 
 function createProgressGraph () {
   const svg = d3.select(this.node)
@@ -6,8 +7,8 @@ function createProgressGraph () {
   const height = +svg.attr('height')
   const appObj = this
   const color = d3.scaleOrdinal()
-        .domain(['root', 'locked', 'unlocked', 'progress', 'completed'])
-        .range(['#FF9800', '#607D8B', '#CDDC39', '#4CAF50', '#9E9E9E'])
+        .domain(statuses)
+        .range(statusColors)
 
   const simulation = d3.forceSimulation()
         .force('link', d3.forceLink().distance(10).strength(0.5))

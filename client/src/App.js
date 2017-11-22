@@ -26,7 +26,8 @@ class App extends Component {
   state = {
     graph: null,
     currentNode: null,
-    mode: 'readonly'
+    mode: 'readonly',
+    idCounter: 0
   }
 
   constructor (props) {
@@ -71,6 +72,7 @@ class App extends Component {
         rightBarJsx = <form style={{"margin": "0.5em"}}>
                         <FormControl fullwidth>
                           <TextField label="title" value={currentNode.id}></TextField>
+                          <TextField label="weight">value={currentNode.weight}</TextField>
                           <TextField label="description" value={currentNode.description} multiline margin="normal"></TextField>
                         </FormControl>
                         <br/>

@@ -69,10 +69,10 @@ class App extends Component {
                         <Comments currentNode={currentNode} addComment={this.addComment} />
                       </div>
       } else {
-        rightBarJsx = <form style={{"margin": "0.5em"}}>
+        rightBarJsx = <form style={{"margin": "0.7em"}}>
                         <FormControl fullwidth>
                           <TextField label="title" value={currentNode.id}></TextField>
-                          <TextField label="weight">value={currentNode.weight}</TextField>
+                          <TextField label="weight" value={currentNode.weight}></TextField>
                           <TextField label="description" value={currentNode.description} multiline margin="normal"></TextField>
                         </FormControl>
                         <br/>

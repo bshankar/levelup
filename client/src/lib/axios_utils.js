@@ -21,7 +21,7 @@ function openUserHome () {
 function closeSession () {
   const appObj = this
   axios.get('/logout', {withCredentials: true}).then(function (res) {
-    appObj.setState({loggedin: null})
+    appObj.setState({loggedin: null, mode: 'readonly', currentNode: null})
   }).catch(function (err) {
     throw err
   })

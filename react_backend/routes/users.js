@@ -13,10 +13,13 @@ router.get('/:user/graph/:graph', function (req, res, next) {
 })
 
 router.post('/:user/graph/:graph', function (req, res, next) {
-  redisClient.set(req.params.user + ':graph:' + req.params.graph, req.body, function (dberr, dbres) {
-    if (dberr) res.send('database error')
-    res.send('ok')
-  })
+  if (req.session && req.session.user === req.params.user) {
+    redisClient.set(req.params.user + ':graph:' + req.params.graph,
+                    JSON.stringify(req.body), function (dberr, dbres) {
+                      if (dberr) res.send('database error')
+                      res.send('ok')
+                    })
+  } else res.redirect('/login')
 })
 
 module.exports = router

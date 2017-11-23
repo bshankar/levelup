@@ -14,7 +14,7 @@ import BottomButtons from './components/bottom_buttons'
 import LoginRegisterForm from './components/login_form'
 
 import createProgressGraph from './lib/draw_graph'
-import {openUserHome, closeSession} from './lib/axios_utils'
+import {openUserHome, closeSession, postGraph} from './lib/axios_utils'
 import {tryUnlockingNexts, handleStatusClick} from './lib/graph_logic'
 import {getComment, addComment} from './lib/form_utils'
 import './App.css'
@@ -33,6 +33,7 @@ class App extends Component {
     this.createProgressGraph = createProgressGraph.bind(this)
     this.openUserHome = openUserHome.bind(this)
     this.closeSession = closeSession.bind(this)
+    this.postGraph = postGraph.bind(this)
     this.handleStatusClick = handleStatusClick.bind(this)
     this.tryUnlockingNexts = tryUnlockingNexts.bind(this)
     this.getComment = getComment.bind(this)

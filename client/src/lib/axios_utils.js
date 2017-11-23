@@ -27,4 +27,22 @@ function closeSession () {
   })
 }
 
-export {openUserHome, closeSession}
+function postGraph () {
+  const bareGraph = {...this.state.graph, nodes: this.state.graph.nodes
+                     .filter(n => n.id !== undefined)
+                     .map(n => ({
+                       id: n.id,
+                       description: n.description,
+                       weight: n.weight,
+                       status: n.status,
+                       comments: n.comments}))}
+  
+  axios.post('/users/' + this.state.loggedin + '/graph/' + this.state.graph.id,
+    bareGraph, {withCredentials: true}).catch(
+    function (err) {
+      throw err
+    }
+  )
+}
+
+export {openUserHome, closeSession, postGraph}

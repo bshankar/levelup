@@ -1,15 +1,16 @@
 import * as d3 from 'd3'
 import {statuses, statusColors} from './task_status'
 
+const color = d3.scaleOrdinal()
+      .domain(statuses)
+      .range(statusColors)
+
 function createProgressGraph () {
   const svg = d3.select(this.node)
   d3.selectAll('svg > *').remove()
   const width = +svg.attr('width')
   const height = +svg.attr('height')
   const appObj = this
-  const color = d3.scaleOrdinal()
-        .domain(statuses)
-        .range(statusColors)
 
   const simulation = d3.forceSimulation()
         .force('link', d3.forceLink().distance(10).strength(0.5))
@@ -41,6 +42,7 @@ function createProgressGraph () {
         .data(nodes.filter(function (d) { return d.id }))
         .enter().append('text')
         .attr('class', 'node')
+        .attr('id', function (d) { return 'n' + d.id })
         .text(d => d.id)
         .attr('font-size', d => d.weight + 'px')
         .attr('fill', function (d) { return color(d.status) })
@@ -101,4 +103,9 @@ function createProgressGraph () {
   }
 }
 
-export default createProgressGraph
+function updateColor (id) {
+  d3.selectAll('#n' + id)
+    .attr('fill', function (d) { return color(d.status) })
+}
+
+export {createProgressGraph, updateColor}

@@ -13,7 +13,7 @@ import TopButtons from './components/top_buttons'
 import BottomButtons from './components/bottom_buttons'
 import LoginRegisterForm from './components/login_form'
 
-import createProgressGraph from './lib/draw_graph'
+import {createProgressGraph, updateColor} from './lib/draw_graph'
 import {openUserHome, closeSession, postGraph} from './lib/axios_utils'
 import {tryUnlockingNexts, handleStatusClick, getStrippedGraph} from './lib/graph_logic'
 import {getComment, addComment, saveGraph} from './lib/form_utils'
@@ -31,6 +31,7 @@ class App extends Component {
   constructor (props) {
     super(props)
     this.createProgressGraph = createProgressGraph.bind(this)
+    this.updateColor = updateColor.bind(this)
     this.openUserHome = openUserHome.bind(this)
     this.closeSession = closeSession.bind(this)
     this.postGraph = postGraph.bind(this)

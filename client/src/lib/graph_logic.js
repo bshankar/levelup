@@ -5,6 +5,7 @@ function tryUnlockingNexts () {
     .map(v => {
       this.state.graph.nodes[v].status = 'unlocked'
       this.setState({graph: this.state.graph})
+      this.updateColor(this.state.graph.nodes[v].id)
     })
 }
 
@@ -23,6 +24,7 @@ function handleStatusClick () {
   default:
     break
   }
+  this.updateColor(this.state.currentNode.id)
 }
 
 function nextUniqueId () {

@@ -11,6 +11,7 @@ function addComment (nameRef, commentRef, formRef) {
     this.setState({graph: this.state.graph})
   }
   formRef.reset()
+  this.postGraph()
 }
 
 export {getComment, addComment}

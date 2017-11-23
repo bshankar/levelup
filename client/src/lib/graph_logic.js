@@ -71,6 +71,17 @@ function deleteNode () {
   this.setState({currentNode: null})
 }
 
+function getStrippedGraph () {
+  return {...this.state.graph, nodes: this.state.graph.nodes
+                     .filter(n => n.id !== undefined)
+                     .map(n => ({
+                       id: n.id,
+                       description: n.description,
+                       weight: n.weight,
+                       status: n.status,
+                       comments: n.comments}))}
+}
+
 export {
   tryUnlockingNexts,
   handleStatusClick,
@@ -78,5 +89,6 @@ export {
   addEdge,
   addChild,
   deleteNode,
-  deleteEdge
+  deleteEdge,
+  getStrippedGraph
 }

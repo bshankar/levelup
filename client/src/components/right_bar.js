@@ -25,7 +25,7 @@ class RightBar extends Component {
                         <Typography type="title"> Comments </Typography>
                         <Comments currentNode={currentNode} addComment={this.props.addComment} />
                       </div>
-      } else {
+      } else if (this.props.mode === 'edit') {
         rightBarJsx = <form style={{"margin": "0.7em"}}>
                         <FormControl fullwidth>
                           <TextField label="title" value={currentNode.id}></TextField>
@@ -40,6 +40,14 @@ class RightBar extends Component {
                           <Button>add child</Button>
                           <Button>delete</Button>
                         </div>
+                      </form>
+      } else if (this.props.mode === 'edit_raw') {
+        rightBarJsx = <form style={{"margin": "0.7em"}}>
+                        <FormControl>
+                          <TextField multiline label="graph" value={JSON.stringify(this.props.getStrippedGraph())}></TextField>
+                        </FormControl>
+                        <br/>
+                        <Button raised>save</Button>
                       </form>
       }
     }

@@ -16,7 +16,7 @@ import LoginRegisterForm from './components/login_form'
 import createProgressGraph from './lib/draw_graph'
 import {openUserHome, closeSession, postGraph} from './lib/axios_utils'
 import {tryUnlockingNexts, handleStatusClick, getStrippedGraph} from './lib/graph_logic'
-import {getComment, addComment} from './lib/form_utils'
+import {getComment, addComment, saveGraph} from './lib/form_utils'
 import './App.css'
 
 class App extends Component {
@@ -34,6 +34,7 @@ class App extends Component {
     this.openUserHome = openUserHome.bind(this)
     this.closeSession = closeSession.bind(this)
     this.postGraph = postGraph.bind(this)
+    this.saveGraph = saveGraph.bind(this)
     this.handleStatusClick = handleStatusClick.bind(this)
     this.tryUnlockingNexts = tryUnlockingNexts.bind(this)
     this.getStrippedGraph = getStrippedGraph.bind(this)
@@ -79,7 +80,8 @@ class App extends Component {
               mode={this.state.mode}
               addComment={this.addComment}
               handleStatusClick={this.handleStatusClick}
-              getStrippedGraph={this.getStrippedGraph} />
+              getStrippedGraph={this.getStrippedGraph}
+              saveGraph={this.saveGraph} />
           </Drawer>
         </Grid>
       </Grid>

@@ -14,4 +14,10 @@ function addComment (nameRef, commentRef, formRef) {
   this.postGraph()
 }
 
-export {getComment, addComment}
+function saveGraph (graphRef) {
+  this.state.graph = JSON.parse(graphRef.value)
+  this.setState({graph: this.state.graph})
+  this.postGraph()
+}
+
+export {getComment, addComment, saveGraph}

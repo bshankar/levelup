@@ -28,9 +28,9 @@ class RightBar extends Component {
       } else if (this.props.mode === 'edit') {
         rightBarJsx = <form style={{"margin": "0.7em"}}>
                         <FormControl fullwidth>
-                          <TextField label="title" value={currentNode.id}></TextField>
-                          <TextField label="weight" value={currentNode.weight}></TextField>
-                          <TextField label="description" value={currentNode.description} multiline margin="normal"></TextField>
+                          <TextField label="title" defaultValue={currentNode.id}></TextField>
+                          <TextField label="weight" defaultValue={currentNode.weight}></TextField>
+                          <TextField label="description" defaultValue={currentNode.description} multiline margin="normal"></TextField>
                         </FormControl>
                         <br/>
                         <StatusListMenu currentNode={currentNode} />
@@ -44,10 +44,13 @@ class RightBar extends Component {
       } else if (this.props.mode === 'edit_raw') {
         rightBarJsx = <form style={{"margin": "0.7em"}}>
                         <FormControl>
-                          <TextField multiline label="graph" value={JSON.stringify(this.props.getStrippedGraph())}></TextField>
+                          <TextField multiline
+                            label="graph"
+                            defaultValue={JSON.stringify(this.props.getStrippedGraph())}
+                            inputRef={el => { this.graphRef = el }}></TextField>
                         </FormControl>
                         <br/>
-                        <Button raised>save</Button>
+                        <Button raised onClick={() => this.props.saveGraph(this.graphRef)}>save</Button>
                       </form>
       }
     }

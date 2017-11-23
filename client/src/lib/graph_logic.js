@@ -25,6 +25,7 @@ function handleStatusClick () {
     break
   }
   this.updateColor(this.state.currentNode.id)
+  this.postGraph()
 }
 
 function nextUniqueId () {

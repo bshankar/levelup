@@ -18,6 +18,7 @@ function saveGraph (graphRef) {
   this.state.graph = JSON.parse(graphRef.value)
   this.setState({graph: this.state.graph})
   this.postGraph()
+  this.createProgressGraph()
 }
 
 export {getComment, addComment, saveGraph}

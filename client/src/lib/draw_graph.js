@@ -3,6 +3,7 @@ import {statuses, statusColors} from './task_status'
 
 function createProgressGraph () {
   const svg = d3.select(this.node)
+  d3.selectAll('svg > *').remove()
   const width = +svg.attr('width')
   const height = +svg.attr('height')
   const appObj = this

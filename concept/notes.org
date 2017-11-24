@@ -1,0 +1,59 @@
+* LevelUp
+
+** Design
+*** Single Page
+**** Center (Perk tree visualization)
+     A tree/topological sorted graph one can create
+**** Left 
+     Pane containing bookmarked trees
+**** Right (hidden)
+     Comment tree sorted by upvotes - downvotes
+**** Top 
+     - Trophies
+     - Logout button
+**** Bottom 
+     Share buttons
+
+
+** Stack
+*** Node
+*** Express
+*** Redis
+*** React
+*** Material-ui
+*** Redux
+
+
+** Database schema
+*** Users
+    - username
+    - password (hashed with bcrypt)
+    - active
+
+**** user:<username> : {password: hash, active: 0/1}
+
+*** Graphs
+**** Name of graph
+**** Nodes
+     - id
+     - description
+     - weight
+     - status
+     - comments
+       - name
+       - comment
+       - date
+**** edges
+**** deps
+
+**** owner:graphs                                                         list(graph_name1, graph_name2, ...)
+**** owner:graph:graph_name:nodes                            list(node_id1, node_id2, ...)
+**** owner:graph:graph_name:node:id                        {id, description, weight, status, comments}
+...
+...
+**** graph:owner:graph_name:edge:source_id     list(node_id1, node_id2, ...)
+...
+...
+**** graph:owner:graph_name:dep:source_id       (same as above) 
+
+*** Store graph as a Json string for now

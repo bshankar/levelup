@@ -1,0 +1,26 @@
+* LevelUp
+
+LevelUp is a progress tracking application. You can track progress on
+things like learning Javascript, a project etc. Each of these is a
+graph with multiple entries and tasks unlock as you progress. This web
+app is a work in progress (*WIP*)
+
+This project was bootstrapped with [[https://github.com/facebookincubator/create-react-app][create-react-app]] and [[https://github.com/expressjs/generator][Express generator]].
+
+** Usage
+
+Install [[https://github.com/nodejs/node][Node]], [[https://github.com/antirez/redis][Redis]] and then
+
+#+BEGIN_SRC bash
+$ git clone https://github.com/bshankar/levelup
+$ cd levelup
+$ redis-server &   # database 
+$ cd react-backend/ && npm i
+$ PORT=3001 node bin/www &  # backend server
+$ cd ../client/ && npm i
+$ npm start  # start react app
+#+END_SRC
+
+** License
+
+[[https://github.com/bshankar/levelup/blob/master/LICENSE][MIT]]

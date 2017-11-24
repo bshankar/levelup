@@ -16,7 +16,7 @@ $ git clone https://github.com/bshankar/levelup
 $ cd levelup
 $ redis-server &   # database 
 $ cd react-backend/ && npm i
-$ PORT=3001 node bin/www &  # backend server
+$ PORT=3001 SECRET=some_random_string_to_sign_cookies node bin/www &  # backend server
 $ cd ../client/ && npm i
 $ npm start  # start react app
 #+END_SRC

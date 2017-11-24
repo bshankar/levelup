@@ -20,7 +20,7 @@ app.use(logger('dev'))
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(session({resave: true, saveUninitialized: true, secret: 'sign_cookie_with_me', cookie: { maxAge: null }}))
+app.use(session({resave: true, saveUninitialized: true, secret: process.env.SECRET, cookie: { maxAge: null }}))
 app.use(express.static(path.join(__dirname, 'public')))
 
 app.use('/', index)

@@ -13,13 +13,14 @@ Install [[https://github.com/nodejs/node][Node]], [[https://github.com/antirez/r
 
 #+BEGIN_SRC bash
 $ git clone https://github.com/bshankar/levelup
-$ cd levelup
-$ redis-server &   # database 
-$ cd react-backend/ && npm i
-$ PORT=3001 SECRET=some_random_string_to_sign_cookies node bin/www &  # backend server
-$ cd ../client/ && npm i
-$ npm start  # start react app
+$ cd levelup/client && npm i  # install client dependencies
+$ npm run-script build        # build client's static files
+$ redis-server &              # start the database server 
+$ cd ../ && npm i             # install server dependencies
+$ PORT=3000 SECRET=some_secret_string_to_encrypt_cookies node bin/www &  # run express server
 #+END_SRC
+
+Open http://localhost:3000 in a web browser.
 
 ** License
 

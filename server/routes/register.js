@@ -1,6 +1,6 @@
 const express = require('express')
 const bcrypt = require('bcrypt')
-const redisClient = require('../connect_database')
+const redisClient = require('../db_utils')
 const router = express.Router()
 
 router.post('/', function (req, res, next) {

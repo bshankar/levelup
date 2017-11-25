@@ -1,5 +1,5 @@
 const express = require('express')
-const redisClient = require('../connect_database')
+const redisClient = require('../db_utils')
 const router = express.Router()
 
 router.get('/', function (req, res, next) {
